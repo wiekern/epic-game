@@ -6,12 +6,23 @@ const main = async () => {
         "https://i.imgur.com/U3ECPSq.jpeg", 
         "https://i.imgur.com/WMB6g9u.png"],
         [100, 150, 220],                    // HP values
-        [100, 90, 70] 
+        [100, 90, 70],
+        "ETH",
+        "https://i.imgur.com/tSY5MCI.jpeg",
+        10000,
+        80
     );
     await gameContract.deployed();
     console.log("Contract deployed to:", gameContract.address);
 
-    let txn = await gameContract.mintCharacterNFT(2);
+    let txn;
+    txn = await gameContract.mintCharacterNFT(2);
+    await txn.wait();
+
+    txn = await gameContract.attackBoss();
+    await txn.wait();
+    
+    txn = await gameContract.attackBoss();
     await txn.wait();
 
     let returnedTokenUri = await gameContract.tokenURI(1);

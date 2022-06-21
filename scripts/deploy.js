@@ -6,30 +6,28 @@ const main = async () => {
         "https://i.imgur.com/U3ECPSq.jpeg", 
         "https://i.imgur.com/WMB6g9u.png"],
         [100, 150, 220],                    // HP values
-        [100, 90, 70] 
+        [100, 90, 70],
+        "ETH",
+        "https://i.imgur.com/tSY5MCI.jpeg",
+        10000,
+        80
     );
+    // 0x34906e3949459F357132be7Db911443d64721a69
     await gameContract.deployed();
     console.log("Contract deployed to:", gameContract.address);
 
     let txn;
-    txn = await gameContract.mintCharacterNFT(0);
-    await txn.wait();
-    console.log("Minted NFT #1");
-
-    txn = await gameContract.mintCharacterNFT(1);
-    await txn.wait();
-    console.log("Minted NFT #2");
-
     txn = await gameContract.mintCharacterNFT(2);
     await txn.wait();
-    console.log("Minted NFT #3");
 
-    txn = await gameContract.mintCharacterNFT(1);
+    txn = await gameContract.attackBoss();
     await txn.wait();
-    console.log("Minted NFT #4");
+    
+    txn = await gameContract.attackBoss();
+    await txn.wait();
 
-    console.log("Done deploying and minting!");
-
+    let returnedTokenUri = await gameContract.tokenURI(1);
+    console.log("Token UIR:", returnedTokenUri);
 };
 
 const runMain = async () => {
